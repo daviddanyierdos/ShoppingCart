@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShoppingCart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace ShoppingCart.Infrastructure
     {
         public ShoppingCartContext(DbContextOptions<ShoppingCartContext> options) :base(options)
         {
-
         }
+
+        public DbSet<Page> Pages { get; set; }
     }
 }
