@@ -9,7 +9,7 @@ namespace ShoppingCart.Infrastructure
 {
     public class ShoppingCartContext : DbContext
     {
-        public ShoppingCartContext(DbContextOptions<ShoppingCartContext> options) :base(options)
+        public ShoppingCartContext(DbContextOptions<ShoppingCartContext> options) : base(options)
         {
         }
 
