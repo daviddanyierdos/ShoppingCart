@@ -43,6 +43,7 @@ namespace ShoppingCart.Areas.Admin.Controllers
         public IActionResult Create() => View();
 
         // POST admin/pages/create
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Create(Page page)
         {
