@@ -42,9 +42,8 @@ namespace ShoppingCart.Areas.Admin.Controllers
         // GET admin/pages/create
         public IActionResult Create() => View();
 
-        // POST /admin/pages/create
+        // POST admin/pages/create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Page page)
         {
             if(ModelState.IsValid)
@@ -52,7 +51,7 @@ namespace ShoppingCart.Areas.Admin.Controllers
                 page.Slug = page.Title.ToLower().Replace(" ", "-");
                 page.Sorting = 100;
 
-                var slug = await context.Pages.FirstOrDefaultAsync(x => x.Slug == page.Slug);
+                var slug = await context.Pages.FirstOrDefaultAsync<Page>(x => x.Slug == page.Slug);
                 if(slug != null)
                 {
                     ModelState.AddModelError("", "The title already exists.");
@@ -69,6 +68,5 @@ namespace ShoppingCart.Areas.Admin.Controllers
 
             return View(page);
         }
-
     }
 }
