@@ -17,7 +17,7 @@ namespace ShoppingCart.Models
                 if(context.Pages.Any())
                 {
                     return;
-                }
+                }   
                 context.Pages.AddRange(
                     new Page
                     {
