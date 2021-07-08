@@ -9,7 +9,7 @@ using ShoppingCart.Infrastructure;
 namespace ShoppingCart.Migrations
 {
     [DbContext(typeof(ShoppingCartContext))]
-    [Migration("20210611105952_InitialCreate")]
+    [Migration("20210708091833_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,6 @@ namespace ShoppingCart.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Sorting")
