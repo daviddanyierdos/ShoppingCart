@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace ShoppingCart.Areas.Admin.Controllers
         {
             this.context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await context.Categories.OrderBy(x => x.Sorting).ToListAsync());
         }
     }
 }
