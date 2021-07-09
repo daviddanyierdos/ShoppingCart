@@ -54,5 +54,61 @@ namespace ShoppingCart.Areas.Admin.Controllers
 
             return View(category);
         }
+
+        // GET admin/categories/edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            Category category = await context.Categories.FindAsync(id);
+
+            if (category == null) return NotFound();
+
+            return View(category);
+        }
+
+        // POST admin/categories/edit/5
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                category.Slug = category.Name.ToLower().Replace(" ", "-");
+
+                var slug = await context.Categories.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == category.Slug);
+                if (slug != null)
+                {
+                    ModelState.AddModelError("", "The category already exists.");
+                    return View(category);
+                }
+
+                context.Update(category);
+                await context.SaveChangesAsync();
+
+                TempData["Success"] = "The category has been edited!";
+
+                return RedirectToAction("Edit", new { id });
+            }
+
+            return View(category);
+        }
+
+        // GET /admin/categories/delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            Category category = await context.Categories.FindAsync(id);
+
+            if (category == null)
+            {
+                TempData["Error"] = "The category does not exist!";
+            }
+            else
+            {
+                context.Categories.Remove(category);
+                await context.SaveChangesAsync();
+                TempData["Error"] = "The category has been deleted!";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
